@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "Out.h"
 
 using namespace std;
@@ -10,5 +9,14 @@ void Out::println(const string& line) {
 }
 
 void Out::print(const string& text) {
-    std::cout << text << std::endl;
+    std::cout << text;
+}
+
+void Out::indent(const int ammount) {
+    string tab = "";
+
+    for (int i = 0; i < ammount; i++)
+        tab += "\t";
+
+    std::cout << tab;
 }
