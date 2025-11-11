@@ -1,5 +1,14 @@
 #include <iostream>
+#include <string>
+#include "Out.h"
 
-void Out::println(std::string line) {
+using namespace std;
+
+
+void Out::println(const string& line) {
     std::cout << line << std::endl;
+}
+
+void Out::print(const string& text) {
+    std::cout << text << std::endl;
 }
