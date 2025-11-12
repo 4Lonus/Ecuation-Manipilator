@@ -3,9 +3,9 @@
 
 class Number {
     public:
+        virtual ~Number() = default;
         virtual double getValue() const = 0;
         virtual void print() const = 0;
-        virtual ~Number() = default;
 };
 
 #endif

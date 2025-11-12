@@ -1,9 +1,9 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
-#include "Number.h"
+#include "Composed.h"
 
-class Product : public Number {
+class Product : public Composed {
     private:
         Number* a;
         Number* b;
@@ -12,7 +12,7 @@ class Product : public Number {
         ~Product();
         double getValue() const override;
         void setValue(Number* a, Number* b);
-        Number* solve();
+        Number* solve() override;
         void print() const override;
 };
 

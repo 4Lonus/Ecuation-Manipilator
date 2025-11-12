@@ -2,8 +2,16 @@
 #include "Integer.h"
 #include "../Util/Out.h"
 
+// Constructor
 Product::Product(Number* a, Number* b) : a(a), b(b) {}
 
+// Destructor (For Composed Object we must delete the son objects manually).
+Product::~Product() {
+	delete a;
+	delete b;
+}
+
+//Methods
 double Product::getValue() const {
 	return a->getValue() * b->getValue();
 }

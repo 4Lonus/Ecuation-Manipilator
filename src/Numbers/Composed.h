@@ -4,11 +4,9 @@
 #include "Number.h"
 
 class Composed : public Number {
-private:
-    /* data */
-public:
-    Composed (/* args */);
-    ~Composed ();
+    public:
+        virtual ~Composed () = default;
+        virtual Number* solve() = 0;
 };
 
 
