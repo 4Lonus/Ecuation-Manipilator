@@ -12,6 +12,10 @@ void Out::print(const string& text) {
     std::cout << text;
 }
 
+void Out::print(const double& number) {
+    std::cout << number;
+}
+
 void Out::indent(const int ammount) {
     string tab = "";
 

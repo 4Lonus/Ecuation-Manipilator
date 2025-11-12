@@ -1,15 +1,15 @@
 #include <iostream>
 #include <string>
-#include "util/Out.h"
+#include "Util/Out.h"
+#include "Numbers/Number.h"
+#include "Numbers/Integer.h"
 
 using namespace std;
 
 int main() {
-    Out::println("Hello World.");
-    Out::print("Hello World, Same Line!!");
-
-    Out::indent(5);
-    Out::print("5 Indent.");
+    Integer* i = new Integer(5);
+    
+    i->print();
 
     return 0;
 }

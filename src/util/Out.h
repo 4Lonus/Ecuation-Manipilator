@@ -8,6 +8,7 @@ class Out {
     public:
         static void println(const string& line);
         static void print(const string& text);
+        static void print(const double& number);
         static void indent(const int ammount);
 };
 #endif
