@@ -10,11 +10,13 @@ class Quotient : public Composed {
     public:
         Quotient(Number* numerator, Number* denominator);
         ~Quotient();
+
         double getValue()const override;
         void setValue(Number* numberator, Number* denominator);
         Number* solve() override;
+        bool isAtomic() const override;
+
         void print();
 };
-
 
 #endif

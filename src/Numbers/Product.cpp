@@ -2,14 +2,15 @@
 #include "Integer.h"
 #include "../Util/Out.h"
 
-// Constructor
+/*	CONSTRUCTOR / DESTRUCTOR	*/
 Product::Product(Number* a, Number* b) : a(a), b(b) {}
 
-// Destructor (For Composed Object we must delete the son objects manually).
 Product::~Product() {
 	delete a;
 	delete b;
 }
+
+
 
 //Methods
 double Product::getValue() const {
@@ -21,9 +22,23 @@ void Product::setValue(Number* a, Number* b) {
 	this->b = b;
 }
 
+Number* Product::solve() {
+	Out::println("Not Yet Supported.");
+	return this;
+}
+
+bool Product::isAtomic() const {
+	return
+		(Integer::isInteger(a) || !a->isAtomic()) &&
+		(Integer::isInteger(b) || !b->isAtomic());
+}
+
+
+
+// Output
 void Product::print() const {
 	const bool needsParenthesis =
-		!Integer::isInteger(a) || !Integer::isInteger(b);
+		!Integer::isClassInteger(a) || !Integer::isClassInteger(b);
 
 	if (needsParenthesis) Out::print("(");
 	a->print();

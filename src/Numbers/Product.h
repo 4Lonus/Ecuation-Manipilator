@@ -10,9 +10,12 @@ class Product : public Composed {
     public:
         Product(Number* a, Number* b);
         ~Product();
+
         double getValue() const override;
         void setValue(Number* a, Number* b);
         Number* solve() override;
+        bool isAtomic() const override;
+        
         void print() const override;
 };
 
