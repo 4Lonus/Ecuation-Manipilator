@@ -1,1 +1,4 @@
 .vscode/settings.json
+.gitignore
+old_src/
+main.exe
