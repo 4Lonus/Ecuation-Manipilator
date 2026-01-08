@@ -1,8 +1,8 @@
-#ifndef EXPRESSION_H
-#define EXPRESSION_H
+#ifndef EXPRESSIONS_H
+#define EXPRESSIONS_H
 
 #include "expressions/Expression.h"
 #include "expressions/Integer.h"
-#include "expressions/Symbol.h"
+//#include "expressions/Symbol.h"
 
 #endif

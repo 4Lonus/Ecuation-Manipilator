@@ -5,14 +5,19 @@
 
 class Rational : public Expression {
 	private:
-		Expression* numerator;
-		Expression* denominator;
+		const std::shared_ptr<Integer> numerator, denominator;
+		Rational(std::shared_ptr<Integer> numerator, std::shared_ptr<Integer> denominator);
 	public:
-		Rational(int numerator, int denominator);
-		~Rational();
-		float getValue() const override;
-		bool isExact() const override;
-		Expression* simplify() const override;
+		static std::shared_ptr<Expression> create(
+			const std::shared_ptr<Integer> numerator,
+			const std::shared_ptr<Integer> denominator
+		);
+		static std::shared_ptr<Expression> create(const int numerator, const int denominator);
+		~Rational() = default;
+		float aproximate() const override;
+		bool equals(std::shared_ptr<Expression>) const override;
+		std::shared_ptr<const Expression> simplify() const override;
+		std::string toString() const override;
 };
 
 #endif

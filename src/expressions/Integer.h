@@ -5,13 +5,16 @@
 
 class Integer : public Expression {
 	private:
-		int value;
-	public:
+		const int value;
 		Integer(int value);
-		~Integer();
-		float getValue() const override;
-		bool isExact() const override;
-		Expression* simplify() const  override;
+	public:
+		static std::shared_ptr<Integer> create(int value);
+		~Integer() = default;
+		float aproximate() const override;
+		bool equals(std::shared_ptr<Expression>) const override;
+		std::shared_ptr<const Expression> simplify() const override;
+		std::string toString() const override;
+		int getValue() const;
 };
 
 #endif

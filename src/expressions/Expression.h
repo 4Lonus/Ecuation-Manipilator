@@ -1,12 +1,17 @@
 #ifndef EXPRESSION_H
 #define EXPRESSION_H
 
-class Expression {
+#include <memory>
+#include <string>
+#include <stdexcept>
+
+class Expression : public std::enable_shared_from_this<Expression> {
 	public:
 		virtual ~Expression() = default;
-		virtual float getValue() const = 0;
-		virtual bool isExact() const = 0;
-		virtual Expression* simplify() const = 0;
+		virtual float aproximate() const = 0;
+		virtual bool equals(std::shared_ptr<Expression>) const = 0;
+		virtual std::shared_ptr<const Expression> simplify() const = 0;
+		virtual std::string toString() const = 0;
 };
 
 #endif
