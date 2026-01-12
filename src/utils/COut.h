@@ -9,6 +9,7 @@ class COut {
 	public:
 		static void println(const string& line);
 		static void println(const int number);
+		static void println(const float number);
 		static void print(const string& text);
 		static void print(const int number);
 };

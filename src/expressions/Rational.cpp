@@ -2,32 +2,60 @@
 #include "Integer.h"
 
 
+
+
+
 /*	CONSTRUCTOR / DESTRUCTOR	*/
-Rational::Rational(std::shared_ptr<Integer> numerator, std::shared_ptr<Integer> denominator) : numerator (numerator), denominator(denominator) {}
+//	Private Constructor
+Rational::Rational(std::shared_ptr<const Integer> numerator, std::shared_ptr<const Integer> denominator) : numerator (numerator), denominator(denominator) {}
 
-std::shared_ptr<Expression> Rational::create(std::shared_ptr<Integer> numerator, std::shared_ptr<Integer> denominator) {
-	if (denominator.get()->getValue() == 0) throw std::invalid_argument("Determinator shall not be 0.");
-	return std::shared_ptr<Expression>(new Rational(numerator, denominator));
+//	Constructor with two Integers
+std::shared_ptr<const Expression> Rational::create(std::shared_ptr<const Integer> numerator, std::shared_ptr<const Integer> denominator) {
+	if (denominator->getValue() == 0) throw std::invalid_argument("Denorminator shall not be 0.");
+	return std::shared_ptr<const Expression>(new Rational(numerator, denominator));
 }
 
-std::shared_ptr<Expression> Rational::create(int num, int den) {
-	return create(Integer::create(num), Integer::create(den));
+//	Constructor with two int
+std::shared_ptr<const Expression> Rational::create(const int numerator, const int denominator) {
+	return create(Integer::create(numerator), Integer::create(denominator));
 }
+
+
+
 
 
 /*	METHODS	*/
-float Rational::aproximate() const {
-	return numerator->aproximate() / denominator->aproximate();
+float Rational::approximate() const {
+	return numerator->approximate() / denominator->approximate();
 }
 
-bool Rational::equals(std::shared_ptr<Expression>) const {
-	return true; // i'll introduce the cross mult later...
+bool Rational::equals(std::shared_ptr<const Expression> comparator) const {
+	auto a = denominator->getValue();
+	auto b = numerator->getValue();
+
+	// Should we symplify before trying to see if it's Rational?
+	std::shared_ptr<const Expression> simplifiedComparator = comparator->simplify();
+
+	auto rationalComparator = std::dynamic_pointer_cast<const Rational>(simplifiedComparator);
+	if (rationalComparator) {
+		auto c = rationalComparator->numerator->getValue();
+		auto d = rationalComparator->denominator->getValue();
+
+		return a * d == c * b; // for when a, b, c and d are all int.
+	} else {
+		auto integerComparator =std::dynamic_pointer_cast<const Integer>(simplifiedComparator);
+		if (integerComparator) {
+			auto c = integerComparator->getValue(); // same here.
+
+			return a == c * b; // a / b = c  =>  a * 1 = c * b
+		} else return false;
+	}	
 }
 
 std::shared_ptr<const Expression> Rational::simplify() const {
-	if (denominator.get()->getValue() == 1);
+	// Let's leave this for last.
 }
 
 std::string Rational::toString() const {
-	return numerator.get()->toString() + "/" + denominator.get()->toString();
+	return numerator->toString() + "/" + denominator->toString();
 }

@@ -1,24 +1,32 @@
 #include "Integer.h"
 
 
+
+
+
+
 /*	CONSTRUCTOR	*/
 Integer::Integer(int value) : value(value) {}
 
-std::shared_ptr<Integer> Integer::create(int value) {
-	return std::shared_ptr<Integer>(new Integer(value));
+std::shared_ptr<const Integer> Integer::create(int value) {
+	return std::shared_ptr<const Integer>(new Integer(value));
 }
+
+
+
 
 
 /*	METHODS	*/
-float Integer::aproximate() const {
+float Integer::approximate() const {
 	return value;
 }
 
-bool Integer::equals(std::shared_ptr<Expression> comparator) const {
-	auto integer = std::dynamic_pointer_cast<Integer>(comparator);
-	if (!integer) return false;
+bool Integer::equals(std::shared_ptr<const Expression> comparator) const {
+	auto simplifiedComparator = comparator->simplify();
+	auto integer = std::dynamic_pointer_cast<const Integer>(simplifiedComparator);
 
-	return value == integer.get()->getValue();
+	if (!integer) return false;
+	return value == integer->getValue();
 }
 
 std::shared_ptr<const Expression> Integer::simplify() const {
