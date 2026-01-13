@@ -3,8 +3,11 @@
 #include <memory>
 
 int main() {
-    auto x = Rational::create(1, 2);
+    auto x = Rational::create(35, 30);
 
-    COut::println(x->toString());
-    COut::println(x->approximate());
+    auto simplifiedX = x->simplify();
+
+    COut::println(simplifiedX->toString());
+
+    return 1;
 }

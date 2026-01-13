@@ -11,7 +11,7 @@ Rational::Rational(std::shared_ptr<const Integer> numerator, std::shared_ptr<con
 
 //	Constructor with two Integers
 std::shared_ptr<const Expression> Rational::create(std::shared_ptr<const Integer> numerator, std::shared_ptr<const Integer> denominator) {
-	if (denominator->getValue() == 0) throw std::invalid_argument("Denorminator shall not be 0.");
+	if (*denominator == 0) throw std::invalid_argument("Denominator shall not be 0.");
 	return std::shared_ptr<const Expression>(new Rational(numerator, denominator));
 }
 
@@ -30,30 +30,37 @@ float Rational::approximate() const {
 }
 
 bool Rational::equals(std::shared_ptr<const Expression> comparator) const {
-	auto a = denominator->getValue();
-	auto b = numerator->getValue();
-
-	// Should we symplify before trying to see if it's Rational?
 	std::shared_ptr<const Expression> simplifiedComparator = comparator->simplify();
 
 	auto rationalComparator = std::dynamic_pointer_cast<const Rational>(simplifiedComparator);
-	if (rationalComparator) {
-		auto c = rationalComparator->numerator->getValue();
-		auto d = rationalComparator->denominator->getValue();
-
-		return a * d == c * b; // for when a, b, c and d are all int.
-	} else {
+	if (rationalComparator) return (*numerator * *rationalComparator->denominator) == (*denominator * *rationalComparator->numerator);
+	else {
 		auto integerComparator =std::dynamic_pointer_cast<const Integer>(simplifiedComparator);
-		if (integerComparator) {
-			auto c = integerComparator->getValue(); // same here.
-
-			return a == c * b; // a / b = c  =>  a * 1 = c * b
-		} else return false;
+		if (integerComparator) return *numerator == (*integerComparator * *denominator);
+		else return false;
 	}	
 }
 
 std::shared_ptr<const Expression> Rational::simplify() const {
-	// Let's leave this for last.
+	// 1st, simplify if numerator == denominator.
+	if (*numerator == *denominator) return Integer::create(1);
+
+	// 2nd, normalize sign, and simplify the new Rational.
+	if (*denominator < 0)
+	return Rational::create(*numerator * -1, *denominator * -1)
+	->simplify();
+
+	// 3nrd, simplify both num and den by the GCF, and simplify.
+	int gcf = Tools::getSteinsGCF(numerator, denominator);
+	if (gcf > 1)
+	return Rational::create(*numerator / gcf, *denominator / gcf)
+	->simplify();
+	
+	// 4th, if den == 1 we just return num.
+	if (*denominator == 1) return numerator;
+
+	// 5th, else Rational is on its smallest/simplest form, we just return it.
+	return shared_from_this();
 }
 
 std::string Rational::toString() const {

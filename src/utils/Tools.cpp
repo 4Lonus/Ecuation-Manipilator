@@ -1,10 +1,9 @@
 #include "Tools.h"
-#include <iostream>
 
 /**
  * Gets the GCF with the Stein Binary Algorithm.
  */
-int Tools::getGCF(int a, int b) {
+int Tools::getSteinsGCF(int a, int b) {
 	// Let's delete the sign:
 	a = abs(a);
 	b = abs(b);
@@ -19,16 +18,20 @@ int Tools::getGCF(int a, int b) {
 	// If A is even...
 	if ((a & 1) == 0) {
 		// Both even, we return the CGF WITH a factor of 2.
-		if ((b & 1) == 0) return getGCF(a >> 1, b >> 1) << 1;
+		if ((b & 1) == 0) return getSteinsGCF(a >> 1, b >> 1) << 1;
 		// A is even & B odd.
-		else return getGCF(a >> 1, b);
+		else return getSteinsGCF(a >> 1, b);
 	}
 
 	// A is odd & B is Even.
-	if ((b & 1) == 0) return getGCF(a, b >> 1);
+	if ((b & 1) == 0) return getSteinsGCF(a, b >> 1);
 
 	// We substract the bigest with the smallest.
 	// At this point we KNOW, both are odd & NOT equal.
-	if (a > b) return getGCF(a - b, b);
-	else return getGCF(a, b - a);
+	if (a > b) return getSteinsGCF(a - b, b);
+	else return getSteinsGCF(a, b - a);
+}
+
+int Tools::getSteinsGCF(std::shared_ptr<const Integer> a, std::shared_ptr<const Integer> b) {
+	return getSteinsGCF(a->getValue(), b->getValue());
 }
