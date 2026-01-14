@@ -39,7 +39,7 @@ bool Rational::equals(std::shared_ptr<const Expression> comparator) const {
 	else {
 		auto integerComparator = std::dynamic_pointer_cast<const Integer>(simplifiedComparator);
 		if (integerComparator)
-			return *numerator == (*integerComparator * *denominator);
+			return *numerator == *(*integerComparator * *denominator);
 		else return false;
 	}	
 }

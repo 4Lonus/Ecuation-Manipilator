@@ -7,7 +7,7 @@
 
 
 
-class Integer : public Expression {
+class Integer final : public Expression, public std::enable_shared_from_this<Integer> {
 	private:
 		const int value;
 		Integer(int value);
@@ -23,20 +23,20 @@ class Integer : public Expression {
 		
 		/*	MATH OPERATORS OVERLOAD	*/
 		//	+	(Addition)
-		int operator+(const Integer& other) const;
-		int operator+(const int other) const;
+		std::shared_ptr<const Integer> operator+(const Integer& other) const;
+		std::shared_ptr<const Integer> operator+(const int other) const;
 		
 		//	-	(Subtracttion)
-		int operator-(const Integer& other) const;
-		int operator-(const int other) const;
+		std::shared_ptr<const Integer> operator-(const Integer& other) const;
+		std::shared_ptr<const Integer> operator-(const int other) const;
 		
 		//	*	(Multiplication)
-		int operator*(const Integer& other) const;
-		int operator*(const int other) const;
+		std::shared_ptr<const Integer> operator*(const Integer& other) const;
+		std::shared_ptr<const Integer> operator*(const int other) const;
 		
 		//	/	(Division)
-		int operator/(const Integer& other) const;
-		int operator/(const int other) const;
+		std::shared_ptr<const Integer> operator/(const Integer& other) const;
+		std::shared_ptr<const Integer> operator/(const int other) const;
 
 
 		/*	COMPARATORS OVERLOAD	*/

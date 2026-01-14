@@ -9,7 +9,7 @@
 
 
 
-class Rational : public Expression {
+class Rational : public Expression, public std::enable_shared_from_this<Rational> {
 	private:
 		const std::shared_ptr<const Integer> numerator, denominator;
 		Rational(std::shared_ptr<const Integer> numerator, std::shared_ptr<const Integer> denominator);

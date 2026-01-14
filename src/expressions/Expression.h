@@ -9,7 +9,7 @@
 
 
 
-class Expression : public std::enable_shared_from_this<Expression> {
+class Expression {
 	public:
 		virtual ~Expression() = default;
 		virtual float approximate() const = 0;
