@@ -30,7 +30,7 @@ bool Integer::equals(std::shared_ptr<const Expression> comparator) const {
 }
 
 std::shared_ptr<const Expression> Integer::simplify() const {
-	return this->Integer::shared_from_this();
+	return this->shared_from_this();
 }
 
 std::string Integer::toString() const {
