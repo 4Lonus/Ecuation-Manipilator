@@ -20,7 +20,12 @@ class Integer final : public Expression, public std::enable_shared_from_this<Int
 		std::string toString() const override;
 		int getValue() const;
 
-		
+		// Explicit Conversions
+		operator int() const {}
+		operator long() const {}
+
+
+
 		/*	MATH OPERATORS OVERLOAD	*/
 		//	+	(Addition)
 		std::shared_ptr<const Integer> operator+(const Integer& other) const;

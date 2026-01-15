@@ -55,7 +55,7 @@ std::shared_ptr<const Expression> Rational::simplify() const {
 		->simplify();
 
 	// 3nrd, simplify both num and den by the GCF, and simplify.
-	int gcf = Tools::getSteinsGCF(numerator, denominator);
+	int gcf = Tools::getSteinsGCF(*numerator, *denominator);
 	if (gcf > 1)
 		return Rational::create(*numerator / gcf, *denominator / gcf)
 		->simplify();

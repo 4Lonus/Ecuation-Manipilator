@@ -31,7 +31,3 @@ int Tools::getSteinsGCF(int a, int b) {
 	if (a > b) return getSteinsGCF(a - b, b);
 	else return getSteinsGCF(a, b - a);
 }
-
-int Tools::getSteinsGCF(std::shared_ptr<const Integer> a, std::shared_ptr<const Integer> b) {
-	return getSteinsGCF(a->getValue(), b->getValue());
-}

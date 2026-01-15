@@ -41,6 +41,15 @@ int Integer::getValue() const {
 	return value;
 }
 
+// Explicit Conversions
+Integer::operator int() const {
+	return value;
+}
+
+Integer::operator long() const {
+	return value;
+}
+
 
 
 
